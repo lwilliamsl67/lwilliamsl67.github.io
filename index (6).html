@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laurie Williams — UX Designer & Researcher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #141210;
+      --paper: #f4efe6;
+      --cream: #ebe4d3;
+      --rust: #bf420d;
+      --teal: #1a7a8a;
+      --teal-light: #29a0b4;
+      --green: #2a6b4f;
+      --green-light: #3d9970;
+      --gold: #b8943f;
+      --muted: #7a6f61;
+      --divider: #d2cbb9;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(244,239,230,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--divider);
+    }
+    .nav-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 64px;
+      border-bottom: 1px solid var(--divider);
+    }
+    .hero-left {
+      padding: 6rem 4rem 6rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid var(--divider);
+    }
+    .hero-right {
+      background: var(--ink);
+      padding: 6rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      top: -20%; right: -15%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(26,122,138,0.25) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-right::after {
+      content: '';
+      position: absolute;
+      bottom: -10%; left: -10%;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(42,107,79,0.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin: 1rem 0 0.5rem;
+    }
+    .hero-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+    .hero-bio {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.85;
+      max-width: 440px;
+      margin-bottom: 3rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.75rem;
+      background: var(--ink);
+      color: var(--paper);
+      text-decoration: none;
+      border: 1px solid var(--ink);
+      transition: all 0.2s;
+    }
+    .btn-primary:hover { background: var(--teal); border-color: var(--teal); }
+    .btn-secondary {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.75rem;
+      background: transparent;
+      color: var(--ink);
+      text-decoration: none;
+      border: 1px solid var(--divider);
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--ink); }
+
+    /* Hero right */
+    .big-L {
+      font-family: 'Playfair Display', serif;
+      font-size: 20rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.03);
+      line-height: 1;
+      position: absolute;
+      top: 0; right: -2rem;
+      pointer-events: none;
+      letter-spacing: -0.05em;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.07);
+      position: relative; z-index: 1;
+      margin-bottom: 2rem;
+    }
+    .hstat {
+      padding: 1.5rem 1.25rem;
+      background: rgba(255,255,255,0.02);
+    }
+    .hstat .v {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--teal-light);
+      line-height: 1;
+      display: block;
+    }
+    .hstat .l {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.56rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(244,239,230,0.3);
+      display: block;
+      margin-top: 0.3rem;
+    }
+    .hero-skills {
+      position: relative; z-index: 1;
+    }
+    .skill-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(244,239,230,0.3);
+      margin-bottom: 0.75rem;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.28rem 0.7rem;
+      border: 1px solid rgba(244,239,230,0.12);
+      color: rgba(244,239,230,0.45);
+    }
+    .skill-tag.hi { border-color: var(--teal); color: var(--teal-light); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes up { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+    .hero-left > * { animation: up 0.8s ease forwards; opacity: 0; }
+    .hero-left > *:nth-child(1){animation-delay:.1s}
+    .hero-left > *:nth-child(2){animation-delay:.2s}
+    .hero-left > *:nth-child(3){animation-delay:.35s}
+    .hero-left > *:nth-child(4){animation-delay:.5s}
+    .hero-right > * { animation: up 0.8s ease forwards; opacity: 0; }
+    .hero-right > *:nth-child(2){animation-delay:.5s}
+    .hero-right > *:nth-child(3){animation-delay:.65s}
+    .hero-right > *:nth-child(4){animation-delay:.8s}
+
+    /* ── PROJECTS ── */
+    #projects { max-width: 1200px; margin: 0 auto; padding: 6rem 3rem; }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--divider);
+    }
+    .section-head h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 700;
+    }
+    .section-head p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .projects-grid { display: grid; gap: 1.5rem; }
+
+    /* Featured project — full width */
+    .project-card {
+      border: 1px solid var(--divider);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: grid;
+      transition: border-color 0.2s;
+      position: relative;
+    }
+    .project-card:hover { border-color: var(--ink); }
+    .project-card.featured { grid-template-columns: 1fr 1fr; min-height: 380px; }
+    .project-card.half { grid-template-columns: 1fr; }
+
+    .projects-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+    .card-visual {
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+      min-height: 260px;
+      display: flex;
+      align-items: flex-end;
+      padding: 2rem;
+    }
+    .card-visual.teal { background: var(--teal); }
+    .card-visual.green { background: var(--green); }
+    .card-visual.rust { background: var(--rust); }
+    .card-visual.gold { background: #7a5c1e; }
+
+    .card-visual::before {
+      content: '';
+      position: absolute;
+      top: -30%; right: -20%;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .card-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 8rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.06);
+      position: absolute;
+      top: -1rem; right: 1rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .card-type-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6);
+      position: relative; z-index: 1;
+    }
+
+    .card-content {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--paper);
+    }
+    .card-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+    .card-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border: 1px solid var(--divider);
+      color: var(--muted);
+    }
+    .card-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .card-link::after { content: '→'; transition: transform 0.2s; }
+    .project-card:hover .card-link::after { transform: translateX(4px); }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--ink);
+      color: rgba(244,239,230,0.85);
+    }
+    .about-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+  .hero-headshot {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--divider);
+      flex-shrink: 0;
+    }
+    .hero-headshot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(255,255,255,0.1);
+      margin-bottom: 2rem;
+      flex-shrink: 0;
+    }
+    .headshot-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .about-left h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: rgba(244,239,230,0.95);
+    }
+    .about-left p {
+      font-size: 0.92rem;
+      line-height: 1.9;
+      color: rgba(244,239,230,0.6);
+      margin-bottom: 1rem;
+    }
+    .about-right { }
+    .exp-item {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .exp-item:first-child { padding-top: 0; }
+    .exp-role {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: rgba(244,239,230,0.9);
+      margin-bottom: 0.2rem;
+    }
+    .exp-company {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal-light);
+      margin-bottom: 0.4rem;
+    }
+    .exp-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      color: rgba(244,239,230,0.25);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── SKILLS ── */
+    #skills {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 3rem;
+      border-bottom: 1px solid var(--divider);
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--divider);
+      border: 1px solid var(--divider);
+      margin-top: 3rem;
+    }
+    .skill-group {
+      background: var(--paper);
+      padding: 2rem 1.75rem;
+    }
+    .skill-group-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.5rem;
+    }
+    .skill-group h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .skill-list { list-style: none; }
+    .skill-list li {
+      font-size: 0.83rem;
+      color: var(--muted);
+      padding: 0.3rem 0;
+      border-bottom: 1px solid var(--divider);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .skill-list li:last-child { border-bottom: none; }
+    .skill-list li::before { content: '—'; color: var(--teal); }
+
+    /* ── CONTACT ── */
+    #contact {
+      border-top: 1px solid var(--divider);
+    }
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .contact-left h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .contact-left p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      border: 1px solid var(--divider);
+      text-decoration: none;
+      color: var(--ink);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .contact-link:hover { border-color: var(--ink); background: var(--cream); }
+    .contact-link-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+    .contact-link-val { font-size: 0.9rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(244,239,230,0.3);
+      text-align: center;
+      padding: 2rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { min-height: 50vh; }
+      .hero-left { padding: 4rem 1.5rem; }
+      .project-card.featured { grid-template-columns: 1fr; }
+      .projects-row { grid-template-columns: 1fr; }
+      .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; }
+      #projects, #skills, #contact .contact-inner, #about .about-inner { padding: 4rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-name">Laurie Williams</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Research & Insights · UX Research · Consumer Insights · Open to All Locations</p>
+    <div>
+      <div class="hero-headshot" style="margin-bottom: 1.5rem;">
+        <img src="headshot.jpg" alt="Laurie Williams">
+      </div>
+      <h1 class="hero-name">Laurie<br>Williams</h1>
+      <p class="hero-title">Research & Insights · UX Research · Consumer Insights</p>
+      <p class="hero-bio">Research & Insights professional with 4+ years of experience leading mixed-methods research, usability evaluation, and data-driven design. Currently completing an MS in Human-Computer Interaction at DePaul University — bridging enterprise research expertise with UX practice. Open to UX Research, Consumer Insights, and Research & Insights roles.</p>
+    </div>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="mailto:mslwilliams00@gmail.com" class="btn-secondary">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="big-L">L</div>
+    <div class="hero-stats">
+      <div class="hstat"><span class="v">4+</span><span class="l">Years Research</span></div>
+      <div class="hstat"><span class="v">100K+</span><span class="l">Survey Participants</span></div>
+      <div class="hstat"><span class="v">13+</span><span class="l">Annual Surveys Run</span></div>
+      <div class="hstat"><span class="v">MS</span><span class="l">HCI · DePaul</span></div>
+    </div>
+    <div class="hero-skills">
+      <p class="skill-label">Core Skills</p>
+      <div class="skill-tags">
+        <span class="skill-tag hi">UX Research</span>
+        <span class="skill-tag hi">Usability Testing</span>
+        <span class="skill-tag hi">Figma</span>
+        <span class="skill-tag hi">Mixed Methods</span>
+        <span class="skill-tag">Card Sorting</span>
+        <span class="skill-tag">Tree Testing</span>
+        <span class="skill-tag">Heuristic Analysis</span>
+        <span class="skill-tag">Journey Mapping</span>
+        <span class="skill-tag">Wireframing</span>
+        <span class="skill-tag">Qualtrics</span>
+        <span class="skill-tag">Tableau</span>
+        <span class="skill-tag">HTML/CSS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-grid">
+
+    <!-- Featured: YMCA -->
+    <a href="https://lwilliamsl67.github.io/ymca-case-study/" class="project-card featured reveal">
+      <div class="card-visual teal">
+        <span class="card-num">01</span>
+        <span class="card-type-badge">UX Research · Usability</span>
+      </div>
+      <div class="card-content">
+        <div>
+          <p class="card-meta">YMCA of Saginaw · 2025</p>
+          <h3 class="card-title">YMCA of Saginaw UX Research</h3>
+          <p class="card-desc">End-to-end usability research for the YMCA of Saginaw website. Conducted heuristic evaluation, cognitive walkthrough, and moderated usability testing across three key tasks — uncovering critical failure patterns and delivering a redesign direction grounded in observed user behavior.</p>
+        </div>
+        <div>
+          <div class="card-tags">
+            <span class="card-tag">Heuristic Evaluation</span>
+            <span class="card-tag">Cognitive Walkthrough</span>
+            <span class="card-tag">Moderated Testing</span>
+            <span class="card-tag">Wireframes</span>
+            <span class="card-tag">Figma</span>
+          </div>
+          <span class="card-link">View Case Study</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Row of two -->
+    <div class="projects-row">
+
+      <!-- Open Books -->
+      <a href="https://lwilliamsl67.github.io/openbooks-case-study/" class="project-card half reveal">
+        <div class="card-visual green" style="min-height:200px;">
+          <span class="card-num">02</span>
+          <span class="card-type-badge">IA · Card Sort · Tree Test</span>
+        </div>
+        <div class="card-content">
+          <div>
+            <p class="card-meta">Open Books Chicago · 2026</p>
+            <h3 class="card-title">Open Books IA Redesign</h3>
+            <p class="card-desc">Redesigned the information architecture for a Chicago literacy nonprofit — running card sorts, tree tests, and heuristic analysis across 16 participants to create a more intuitive navigation system.</p>
+          </div>
+          <div>
+            <div class="card-tags">
+              <span class="card-tag">Card Sort</span>
+              <span class="card-tag">Tree Test</span>
+              <span class="card-tag">IA Design</span>
+              <span class="card-tag">UXTweak</span>
+            </div>
+            <span class="card-link">View Case Study</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Badger Tours -->
+      <a href="https://lwilliamsl67.github.io/ux-badgertours/" class="project-card half reveal">
+        <div class="card-visual rust" style="min-height:200px;">
+          <span class="card-num">03</span>
+          <span class="card-type-badge">UX Research · Prototyping</span>
+        </div>
+        <div class="card-content">
+          <div>
+            <p class="card-meta">UW–Madison · 2023</p>
+            <h3 class="card-title">Badger Tours UX Design</h3>
+            <p class="card-desc">Designed a customizable campus tour app for incoming UW–Madison students. Used contextual inquiry, journey mapping, and usability evaluation — achieving 100% task completion across 8 participants.</p>
+          </div>
+          <div>
+            <div class="card-tags">
+              <span class="card-tag">Contextual Inquiry</span>
+              <span class="card-tag">Journey Mapping</span>
+              <span class="card-tag">Axure Prototype</span>
+              <span class="card-tag">Usability Testing</span>
+            </div>
+            <span class="card-link">View Case Study</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Type Hierarchies -->
+    <a href="https://typeh-lauriewilliams223.netlify.app" class="project-card featured reveal" style="grid-template-columns: 1fr 1fr;">
+      <div class="card-visual gold">
+        <span class="card-num">04</span>
+        <span class="card-type-badge">Typography · Web Design</span>
+      </div>
+      <div class="card-content">
+        <div>
+          <p class="card-meta">HCI 472 · DePaul University · 2026</p>
+          <h3 class="card-title">Typographic Hierarchies</h3>
+          <p class="card-desc">Three web-based typographic hierarchy systems exploring modular scale, optical sizing, and CSS font properties. Built with Bootstrap and custom CSS — featuring Fraunces & Nunito, Libre Baskerville, and Josefin Slab & Sans.</p>
+        </div>
+        <div>
+          <div class="card-tags">
+            <span class="card-tag">Typography</span>
+            <span class="card-tag">Bootstrap</span>
+            <span class="card-tag">CSS</span>
+            <span class="card-tag">Google Fonts</span>
+            <span class="card-tag">Modular Scale</span>
+          </div>
+          <span class="card-link">View Project</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-left reveal">
+      <h2>Research-driven.<br>Design-minded.</h2>
+      <p>I'm a Research & Insights professional currently completing an MS in Human-Computer Interaction at DePaul University. I bring 4+ years of enterprise research experience — managing 100,000+ participant datasets, leading global survey programs, and delivering executive-level insights — into UX practice.</p>
+      <p>My background spans quantitative and qualitative methods, usability evaluation, information architecture, and interaction design. I'm particularly drawn to projects where research and design work together to solve real problems for real people.</p>
+      <p>Based in Columbia, SC — open to all locations including remote, hybrid, and onsite opportunities in UX Research, Consumer Insights, and Research & Insights.</p>
+    </div>
+    <div class="about-right reveal">
+      <div class="exp-item">
+        <p class="exp-role">Survey Manager</p>
+        <p class="exp-company">Uptime Institute · Remote</p>
+        <p class="exp-date">Oct 2024 – Present</p>
+      </div>
+      <div class="exp-item">
+        <p class="exp-role">Survey Associate</p>
+        <p class="exp-company">Uptime Institute · Remote</p>
+        <p class="exp-date">Mar 2023 – Oct 2024</p>
+      </div>
+      <div class="exp-item">
+        <p class="exp-role">AML Analyst</p>
+        <p class="exp-company">AML Rightsource · Remote</p>
+        <p class="exp-date">Jul 2022 – Feb 2023</p>
+      </div>
+      <div class="exp-item">
+        <p class="exp-role">MS Human-Computer Interaction</p>
+        <p class="exp-company">DePaul University · Expected Jun 2026</p>
+        <p class="exp-date">Chicago, IL · Remote</p>
+      </div>
+      <div class="exp-item">
+        <p class="exp-role">BS Psychology</p>
+        <p class="exp-company">Winthrop University</p>
+        <p class="exp-date">Aug 2019 – Jun 2022</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-head reveal">
+    <h2>Skills & Tools</h2>
+    <p>What I bring to the table</p>
+  </div>
+  <div class="skills-grid reveal">
+    <div class="skill-group">
+      <p class="skill-group-label">Research Methods</p>
+      <h3>UX Research</h3>
+      <ul class="skill-list">
+        <li>Usability Testing</li>
+        <li>Heuristic Evaluation</li>
+        <li>Card Sorting & Tree Testing</li>
+        <li>Contextual Inquiry</li>
+        <li>User Interviews</li>
+        <li>Journey Mapping</li>
+        <li>Personas & Affinity Mapping</li>
+        <li>Mixed Methods Research</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <p class="skill-group-label">Data & Analytics</p>
+      <h3>Research Ops</h3>
+      <ul class="skill-list">
+        <li>Survey Design & Programming</li>
+        <li>Statistical Analysis</li>
+        <li>Data Cleaning & Processing</li>
+        <li>Insight Reporting</li>
+        <li>Tableau & PowerBI</li>
+        <li>Qualtrics & SurveyMonkey</li>
+        <li>Excel (PivotTables, VLOOKUPs)</li>
+        <li>SPSS & Minitab</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <p class="skill-group-label">Design & Dev</p>
+      <h3>Design Tools</h3>
+      <ul class="skill-list">
+        <li>Figma & Adobe XD</li>
+        <li>Wireframing & Prototyping</li>
+        <li>HTML & CSS</li>
+        <li>Adobe Creative Suite</li>
+        <li>UXTweak & Optimal Workshop</li>
+        <li>Sketch & Canva</li>
+        <li>Axure RP</li>
+        <li>Salesforce</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left reveal">
+      <h2>Let's work<br>together.</h2>
+      <p>I'm currently open to UX Research, Consumer Insights, and Research & Insights roles — remote, hybrid, or onsite. If you're looking for someone who brings rigorous research methodology, data-driven thinking, and design sensibility to the table, I'd love to connect.</p>
+      <a href="Laurie_Williams_Resume.pdf" class="btn-primary" download>Download Resume</a>
+    </div>
+    <div class="contact-links reveal">
+      <a href="mailto:mslwilliams00@gmail.com" class="contact-link">
+        <div>
+          <span class="contact-link-label">Email</span>
+          <span class="contact-link-val">mslwilliams00@gmail.com</span>
+        </div>
+      </a>
+      <a href="#" class="contact-link">
+        <div>
+          <span class="contact-link-label">Location & Availability</span>
+          <span class="contact-link-val">Columbia, SC · Open to All Locations</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Laurie Williams · UX Designer & Researcher · 2026
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
